@@ -12,15 +12,14 @@ import 'package:like_ict_tube_app/utilities/constant.dart';
 import 'package:like_ict_tube_app/utilities/keys.dart';
 import 'package:route_transitions/route_transitions.dart';
 
-class Html2020 extends StatefulWidget {
+class Networking2020 extends StatefulWidget {
   @override
-  _Html2020State createState() => _Html2020State();
+  _Networking2020State createState() => _Networking2020State();
 }
 
-class _Html2020State extends State<Html2020> {
+class _Networking2020State extends State<Networking2020> {
   AdmobInterstitial interstitialAd;
   Channel _channel;
-
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
   final List<Message> messages = [];
 
@@ -91,68 +90,68 @@ class _Html2020State extends State<Html2020> {
   _buildVideo(Video video) {
     final mediaQueryData = MediaQuery.of(context);
     if(mediaQueryData.orientation == Orientation.portrait)
-    {
-      return
-        GestureDetector(
-          onTap: () async{
-            Navigator.of(context).push(PageRouteTransition(
-                animationType: AnimationType.slide_left,
-                builder: (_) => VideoScreen(id: video.id, video: video,))
-            );
-            if (await interstitialAd.isLoaded) {
-              interstitialAd.show();
-            }
-          },
-          child: Container(
-            margin: EdgeInsets.only(top: 10, bottom: 10, left: 10, right: 12),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(10.0),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black87,
-                  offset: Offset(3, 3),
-                  blurRadius: 5.0,
-                ),
-              ],
-            ),
-            child: Column(
-              children: <Widget>[
-                ClipRRect(
-                  borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(10),
-                    topLeft: Radius.circular(10),
+      {
+        return
+          GestureDetector(
+            onTap: () async{
+              Navigator.of(context).push(PageRouteTransition(
+                  animationType: AnimationType.slide_left,
+                  builder: (_) => VideoScreen(id: video.id, video: video,))
+              );
+              if (await interstitialAd.isLoaded) {
+                interstitialAd.show();
+              }
+            },
+            child: Container(
+              margin: EdgeInsets.only(top: 10, bottom: 10, left: 10, right: 12),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10.0),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black87,
+                    offset: Offset(3, 3),
+                    blurRadius: 5.0,
                   ),
-                  clipBehavior: Clip.antiAlias,
-                  child: Image(
-                    image: NetworkImage(video.thumbnailUrl ,),
-                    fit: BoxFit.fitWidth,
-                    width: MediaQuery.of(context).size.width,
-                    height: 200,
-                  ),
-                ),
-                SizedBox(height: 5.0),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    video.title,
-                    style: TextStyle(
-                      color: Colors.grey.shade700,
-                      fontSize: 16.0,
-                      letterSpacing: 0.3,
-                      fontWeight: FontWeight.bold,
+                ],
+              ),
+              child: Column(
+                children: <Widget>[
+                  ClipRRect(
+                    borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(10),
+                      topLeft: Radius.circular(10),
                     ),
-                    maxLines: 3,
-                    overflow: TextOverflow.ellipsis,
+                    clipBehavior: Clip.antiAlias,
+                    child: Image(
+                      image: NetworkImage(video.thumbnailUrl ,),
+                      fit: BoxFit.fitWidth,
+                      width: MediaQuery.of(context).size.width,
+                      height: 200,
+                    ),
                   ),
-                ),
+                  SizedBox(height: 5.0),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      video.title,
+                      style: TextStyle(
+                        color: Colors.grey.shade700,
+                        fontSize: 16.0,
+                        letterSpacing: 0.3,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
 
-              ],
+                ],
+              ),
             ),
-          ),
-        );
-    }
-    return GestureDetector(
+          );
+      }
+        return GestureDetector(
       onTap: () async{
         Navigator.of(context).push(PageRouteTransition(
             animationType: AnimationType.slide_left,
@@ -214,7 +213,6 @@ class _Html2020State extends State<Html2020> {
       ),
     );
   }
-
   @override
   void dispose() {
     interstitialAd.dispose();
@@ -231,11 +229,11 @@ class _Html2020State extends State<Html2020> {
         title: RichText(
           textAlign: TextAlign.center,
           text: TextSpan(
-              text: ('CHAPTER - 4\n'),
+              text: ('CHAPTER - 2\n'),
               style: TextStyle(color: Colors.white, fontSize: 20,fontWeight: FontWeight.bold, letterSpacing: 4.0, ),
               children:[
                 TextSpan(
-                  text: ( '( Web Design - HTML )' ),
+                  text: ( '( Networking )' ),
                   style: TextStyle(color: Colors.white70,fontSize: 18,fontStyle: FontStyle.italic, letterSpacing: 1.50),
                 ),
               ]
@@ -252,7 +250,7 @@ class _Html2020State extends State<Html2020> {
         ),
         flexibleSpace: appBarContainer,
       ),
-      //categoryAppBar('CHAPTER-4','Web Design'),
+      //categoryAppBar('CHAPTER-5', 'C-Programing'),
       body: _channel != null
           ? NotificationListener<ScrollNotification>(
               child: ListView.builder(
@@ -282,7 +280,6 @@ class _Html2020State extends State<Html2020> {
 
 //==================================Api Services=====================================//
 class APIService {APIService._instantiate();
-
 static final APIService instance = APIService._instantiate();
 
 final String _baseUrl = 'www.googleapis.com';
@@ -311,7 +308,7 @@ Future<Channel> fetchChannel({String channelId}) async {
 
     // Fetch first batch of videos from uploads playlist
     channel.videos = await fetchVideosFromPlaylist(
-      playlistId: HTML_2020,
+      playlistId: NETWORKING_2020,
     );
     return channel;
   } else {

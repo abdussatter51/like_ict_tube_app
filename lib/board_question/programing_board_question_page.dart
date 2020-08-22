@@ -1,8 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:admob_flutter/admob_flutter.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:like_ict_tube_app/cloud_message/message_model.dart';
 import 'package:like_ict_tube_app/models/channel_model.dart';
 import 'package:like_ict_tube_app/models/video_model.dart';
 import 'package:like_ict_tube_app/screens/video_screen.dart';
@@ -19,6 +21,9 @@ class _ProgramingBQState extends State<ProgramingBQ> {
   AdmobInterstitial interstitialAd;
   Channel _channel;
 
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+  final List<Message> messages = [];
+
   @override
   void initState() {
     super.initState();
@@ -31,6 +36,42 @@ class _ProgramingBQState extends State<ProgramingBQ> {
     );
 
     interstitialAd.load();
+    _firebaseMessaging.configure(
+        onMessage: (Map<String, dynamic> message) async {
+          print("onMessage: $message");
+          showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              content: ListTile(
+                title: Text(message['notification']['title']),
+                subtitle: Text(message['notification']['body']),
+              ),
+              actions: <Widget>[
+                FlatButton(
+                  child: Text('Ok'),
+                  onPressed: () => Navigator.of(context).pop(),
+                ),
+              ],
+            ),
+          );
+        },
+        onLaunch: (Map<String, dynamic> message) async{
+          print("onLaunch: $message");
+          final notification = message['data'];
+          setState(() {
+            messages.add(Message(
+              title: '${notification['title']}',
+              body: '${notification['body']}',
+            ));
+          });
+        },
+        onResume: (Map<String, dynamic> message) async{
+          print("onResume: $message");
+        }
+    );
+    _firebaseMessaging.requestNotificationPermissions(
+        const IosNotificationSettings(sound: true, badge: true, alert: true)
+    );
   }
 
   _initChannel() async {
@@ -48,62 +89,127 @@ class _ProgramingBQState extends State<ProgramingBQ> {
   }
 
   _buildVideo(Video video) {
-    return
-      GestureDetector(
-        onTap: () async{
-          Navigator.of(context).push(PageRouteTransition(
-              animationType: AnimationType.slide_left,
-              builder: (_) => VideoScreen(id: video.id, video: video,))
-          );
-          if (await interstitialAd.isLoaded) {
-            interstitialAd.show();
-          }
-        },
+    final mediaQueryData = MediaQuery.of(context);
+    if(mediaQueryData.orientation == Orientation.portrait)
+    {
+      return
+        GestureDetector(
+          onTap: () async{
+            Navigator.of(context).push(PageRouteTransition(
+                animationType: AnimationType.slide_left,
+                builder: (_) => VideoScreen(id: video.id, video: video,))
+            );
+            if (await interstitialAd.isLoaded) {
+              interstitialAd.show();
+            }
+          },
+          child: Container(
+            margin: EdgeInsets.only(top: 10, bottom: 10, left: 10, right: 12),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10.0),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black87,
+                  offset: Offset(3, 3),
+                  blurRadius: 5.0,
+                ),
+              ],
+            ),
+            child: Column(
+              children: <Widget>[
+                ClipRRect(
+                  borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(10),
+                    topLeft: Radius.circular(10),
+                  ),
+                  clipBehavior: Clip.antiAlias,
+                  child: Image(
+                    image: NetworkImage(video.thumbnailUrl ,),
+                    fit: BoxFit.fitWidth,
+                    width: MediaQuery.of(context).size.width,
+                    height: 200,
+                  ),
+                ),
+                SizedBox(height: 5.0),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    video.title,
+                    style: TextStyle(
+                      color: Colors.grey.shade700,
+                      fontSize: 16.0,
+                      letterSpacing: 0.3,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+
+              ],
+            ),
+          ),
+        );
+    }
+    return GestureDetector(
+      onTap: () async{
+        Navigator.of(context).push(PageRouteTransition(
+            animationType: AnimationType.slide_left,
+            builder: (_) => VideoScreen(id: video.id, video: video,))
+        );
+        if (await interstitialAd.isLoaded) {
+          interstitialAd.show();
+        }
+      },
       child: Container(
-        margin: EdgeInsets.only(top: 10, bottom: 10, left: 10, right: 12),
+        width: MediaQuery.of(context).size.width * .70,
+        margin: EdgeInsets.only(top: 15.0, bottom: 10, left: 15, right: 5),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(10.0),
           boxShadow: [
             BoxShadow(
               color: Colors.black87,
-              offset: Offset(3, 3),
+              offset: Offset(-3, 3),
               blurRadius: 5.0,
             ),
           ],
         ),
-        child: Column(
-          children: <Widget>[
-            ClipRRect(
-              borderRadius: BorderRadius.only(
-                topRight: Radius.circular(10),
-                topLeft: Radius.circular(10),
-              ),
-              clipBehavior: Clip.antiAlias,
-              child: Image(
-                image: NetworkImage(video.thumbnailUrl ,),
-                fit: BoxFit.fitWidth,
-                width: MediaQuery.of(context).size.width,
-                height: 200,
-              ),
-            ),
-            SizedBox(height: 5.0),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                video.title,
-                style: TextStyle(
-                  color: Colors.grey.shade700,
-                  fontSize: 16.0,
-                  letterSpacing: 0.3,
-                  fontWeight: FontWeight.bold,
+        child: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              ClipRRect(
+                borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(10),
+                  topLeft: Radius.circular(10),
                 ),
-                maxLines: 3,
-                overflow: TextOverflow.ellipsis,
+                clipBehavior: Clip.antiAlias,
+                child: Image(
+                  image: NetworkImage(video.thumbnailUrl ,),
+                  fit: BoxFit.fitWidth,
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height * .65,
+                ),
               ),
-            ),
+              SizedBox(height: 5.0),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  video.title,
+                  style: TextStyle(
+                    color: Colors.grey.shade700,
+                    fontSize: 19.0,
+                    letterSpacing: 0.3,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  maxLines: 3,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
 
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -149,6 +255,7 @@ class _ProgramingBQState extends State<ProgramingBQ> {
       body: _channel != null
           ? NotificationListener<ScrollNotification>(
               child: ListView.builder(
+                scrollDirection: MediaQuery.of(context).orientation == Orientation.portrait ? Axis.vertical : Axis.horizontal,
                 itemCount: 1 + _channel.videos.length,
                 itemBuilder: (BuildContext context, int index) {
                   if (index == 0) {

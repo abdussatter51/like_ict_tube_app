@@ -15,29 +15,54 @@ class _SplashScreenPartState extends State<SplashScreenPart> {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
     ));
-    return SplashScreen(
-      seconds: 5,
-      navigateAfterSeconds: MyHomePage(),
-      /*title: Text('WELCOME to\nLike ICT Youtube',
+    final mediaQueryData = MediaQuery.of(context);
+    if(mediaQueryData.orientation == Orientation.portrait)
+      {
+        return SplashScreen(
+          seconds: 5,
+          navigateAfterSeconds: MyHomePage(),
+          /*title: Text('WELCOME to\nLike ICT Youtube',
           style: TextStyle(color: Colors.white, fontSize: 40, fontWeight: FontWeight.bold ), maxLines: 2,
           overflow: TextOverflow.ellipsis, textAlign: TextAlign.center,),*/
-      image: Image.asset(
-        "assets/images/logo.png",
-      ),
-      gradientBackground: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [Colors.white, Colors.green]),
-      styleTextUnderTheLoader: new TextStyle(
-          fontSize: 18, color: Colors.white, fontStyle: FontStyle.italic),
-      loadingText: Text(
-        'This is an educational app',
-        style: TextStyle(
-            fontSize: 18, color: Colors.white, fontStyle: FontStyle.italic),
-      ),
-      photoSize: 200.0,
-      loaderColor: Colors.white,
-      backgroundColor: Colors.white,
+          image: Image.asset(
+            "assets/images/logo.png",
+          ),
+          gradientBackground: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [Colors.white, Colors.green]),
+          styleTextUnderTheLoader: new TextStyle(
+              fontSize: 18, color: Colors.white, fontStyle: FontStyle.italic),
+          loadingText: Text(
+            'This is an educational app',
+            style: TextStyle(
+                fontSize: 18, color: Colors.white, fontStyle: FontStyle.italic),
+          ),
+          photoSize: 200.0,
+          loaderColor: Colors.white,
+          backgroundColor: Colors.white,
+        );
+      }
+        return SplashScreen(
+      seconds: 5,
+          navigateAfterSeconds: MyHomePage(),
+          image: Image.asset(
+            "assets/images/logo.png",
+          ),
+          gradientBackground: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [Colors.white, Colors.green]),
+          styleTextUnderTheLoader: new TextStyle(
+              fontSize: 10, color: Colors.white, fontStyle: FontStyle.italic),
+          loadingText: Text(
+            'This is an educational app',
+            style: TextStyle(
+                fontSize: 18, color: Colors.white, fontStyle: FontStyle.italic),
+          ),
+          photoSize: 100.0,
+          loaderColor: Colors.white,
+          backgroundColor: Colors.white,
     );
   }
 }

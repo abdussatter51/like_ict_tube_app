@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1027131357885",
+    "firebase_url": "https://flutter-project-d9b48.firebaseio.com",
+    "project_id": "flutter-project-d9b48",
+    "storage_bucket": "flutter-project-d9b48.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1027131357885:android:5b039c4a720a18be7855d4",
+        "android_client_info": {
+          "package_name": "com.abdussatter.like_ict_tube_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1027131357885-91ftul6dkf621l6mqaokv3ebb40l5c0d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAdFz_dwA9IFjAxnPG3uWMa7PN1x2Rnm6E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1027131357885-91ftul6dkf621l6mqaokv3ebb40l5c0d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

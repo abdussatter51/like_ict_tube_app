@@ -35,6 +35,9 @@ dependencies:
   url_launcher: ^5.5.0
   admob_flutter: ^0.3.4
   connectivity: ^0.4.9
+  firebase_messaging: ^6.0.16
+  share: ^0.6.4+3
+
 
 
 

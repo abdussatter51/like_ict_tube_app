@@ -101,7 +101,7 @@ class ContactUs extends StatelessWidget {
                       SizedBox(height: 5,),
                       GestureDetector(
                         onTap: ()async {
-                          const url = 'https://web.facebook.com/abdussatter111';
+                          const url = 'https://www.facebook.com/abdussatter111';
                           if (await canLaunch(url)) {
                             await launch(url);
                           } else {
@@ -113,7 +113,7 @@ class ContactUs extends StatelessWidget {
                               text: 'FB: ', style: TextStyle(fontFamily: 'Lato', fontSize: 18, color: Colors.grey.shade900, fontStyle: FontStyle.italic),
                               children: [
                                 TextSpan(
-                                  text: 'fb.com/abdussatter111', style: TextStyle(fontFamily: 'Lato', fontStyle: FontStyle.italic, fontSize: 20, color: Colors.blue.shade500),
+                                  text: 'fb.me/abdussatter111', style: TextStyle(fontFamily: 'Lato', fontStyle: FontStyle.italic, fontSize: 20, color: Colors.blue.shade500),
                                 ),
                               ]
                           ),
