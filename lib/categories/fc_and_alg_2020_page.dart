@@ -255,16 +255,21 @@ class _FlowchartAndAlgorithm2020State extends State<FlowchartAndAlgorithm2020> {
       //categoryAppBar('CHAPTER-5','Algorithm and Flowchart'),
       body: _channel != null
           ? NotificationListener<ScrollNotification>(
-              child: ListView.builder(
-                scrollDirection: MediaQuery.of(context).orientation == Orientation.portrait ? Axis.vertical : Axis.horizontal,
-                itemCount: 1 + _channel.videos.length,
-                itemBuilder: (BuildContext context, int index) {
-                  if (index == 0) {
-                    return _buildProfileInfo();
-                  }
-                  Video video = _channel.videos[index - 1];
-                  return _buildVideo(video);
+              child: RefreshIndicator(
+                onRefresh: () async{
+                  return await Future.delayed(Duration(seconds: 3));
                 },
+                child: ListView.builder(
+                  scrollDirection: MediaQuery.of(context).orientation == Orientation.portrait ? Axis.vertical : Axis.horizontal,
+                  itemCount: 1 + _channel.videos.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    if (index == 0) {
+                      return _buildProfileInfo();
+                    }
+                    Video video = _channel.videos[index - 1];
+                    return _buildVideo(video);
+                  },
+                ),
               ),
             )
           : Center(

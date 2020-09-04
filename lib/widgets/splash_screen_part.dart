@@ -21,9 +21,6 @@ class _SplashScreenPartState extends State<SplashScreenPart> {
         return SplashScreen(
           seconds: 5,
           navigateAfterSeconds: MyHomePage(),
-          /*title: Text('WELCOME to\nLike ICT Youtube',
-          style: TextStyle(color: Colors.white, fontSize: 40, fontWeight: FontWeight.bold ), maxLines: 2,
-          overflow: TextOverflow.ellipsis, textAlign: TextAlign.center,),*/
           image: Image.asset(
             "assets/images/logo.png",
           ),

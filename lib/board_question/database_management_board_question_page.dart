@@ -254,16 +254,21 @@ class _DatabaseManagementBQState extends State<DatabaseManagementBQ> {
       //categoryAppBar('CHAPTER-5', 'C-Programing'),
       body: _channel != null
           ? NotificationListener<ScrollNotification>(
-              child: ListView.builder(
-                scrollDirection: MediaQuery.of(context).orientation == Orientation.portrait ? Axis.vertical : Axis.horizontal,
-                itemCount: 1 + _channel.videos.length,
-                itemBuilder: (BuildContext context, int index) {
-                  if (index == 0) {
-                    return _buildProfileInfo();
-                  }
-                  Video video = _channel.videos[index - 1];
-                  return _buildVideo(video);
+              child: RefreshIndicator(
+                onRefresh: () async{
+                  return await Future.delayed(Duration(seconds: 3));
                 },
+                child: ListView.builder(
+                  scrollDirection: MediaQuery.of(context).orientation == Orientation.portrait ? Axis.vertical : Axis.horizontal,
+                  itemCount: 1 + _channel.videos.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    if (index == 0) {
+                      return _buildProfileInfo();
+                    }
+                    Video video = _channel.videos[index - 1];
+                    return _buildVideo(video);
+                  },
+                ),
               ),
             )
           : Center(

@@ -55,7 +55,7 @@ class ContactUs extends StatelessWidget {
                       SizedBox(height: 10,),
                       Text('Abdus Satter', style: TextStyle(fontFamily: 'Ranchers', letterSpacing: 2,fontSize: 30, fontWeight: FontWeight.bold, color: Colors.blue),),
                       SizedBox(height: 5,),
-                      Text('Web and Mobile Apps Developer,', style: TextStyle(fontFamily: 'Lato', fontStyle: FontStyle.italic, fontSize: 20, color: Colors.grey.shade800),),
+                      Text('Web and Mobile Apps Developer,', style: TextStyle(fontFamily: 'Lato', fontStyle: FontStyle.italic, fontSize: 20, color: Colors.grey.shade800),textAlign: TextAlign.center,),
                       SizedBox(height: 5,),
                       GestureDetector(
                         onTap: ()async {

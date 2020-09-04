@@ -255,16 +255,21 @@ class _LogicGate2020State extends State<LogicGate2020> {
       //categoryAppBar('CHAPTER-3','Logic Gate'),
       body: _channel != null
           ? NotificationListener<ScrollNotification>(
-              child: ListView.builder(
-                scrollDirection: MediaQuery.of(context).orientation == Orientation.portrait ? Axis.vertical : Axis.horizontal,
-                itemCount: 1 + _channel.videos.length,
-                itemBuilder: (BuildContext context, int index) {
-                  if (index == 0) {
-                    return _buildProfileInfo();
-                  }
-                  Video video = _channel.videos[index - 1];
-                  return _buildVideo(video);
+              child: RefreshIndicator(
+                onRefresh: () async{
+                  return await Future.delayed(Duration(seconds: 3));
                 },
+                child: ListView.builder(
+                  scrollDirection: MediaQuery.of(context).orientation == Orientation.portrait ? Axis.vertical : Axis.horizontal,
+                  itemCount: 1 + _channel.videos.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    if (index == 0) {
+                      return _buildProfileInfo();
+                    }
+                    Video video = _channel.videos[index - 1];
+                    return _buildVideo(video);
+                  },
+                ),
               ),
             )
           : Center(

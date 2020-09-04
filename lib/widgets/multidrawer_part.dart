@@ -59,7 +59,7 @@ class _MultidrawerPartState extends State<MultidrawerPart> {
       }
     );
   }
-  /*connectionDialog(){
+  connectionDialog(){
     showDialog(
         context: context,
         builder: (context) {
@@ -78,7 +78,7 @@ class _MultidrawerPartState extends State<MultidrawerPart> {
           );
         }
     );
-  }*/
+  }
 
   @override
   void initState() {
@@ -113,8 +113,8 @@ class _MultidrawerPartState extends State<MultidrawerPart> {
                   adSize: bannerSize,
                 ),
               ),
-              drawer: DrawerPart(),
-              /*Container(
+              drawer:
+              Container(
                 //margin: EdgeInsets.only(top: 56),
                 width: size.width * .80,
                 child: Drawer(
@@ -215,8 +215,8 @@ class _MultidrawerPartState extends State<MultidrawerPart> {
                                 Navigator.of(context).pop();
                                 Navigator.of(context).push(MaterialPageRoute(builder: (context) => CProgram2020()));
                               }
-                              *//*Navigator.of(context).pop();
-                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => CProgram2020()));*//*
+                              /*Navigator.of(context).pop();
+                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => CProgram2020()));*/
                             },
                           ),
                           SizedBox(height: 10,),
@@ -616,7 +616,7 @@ class _MultidrawerPartState extends State<MultidrawerPart> {
                     ],
                   ),
                 ),
-              ),*/
+              ),
 
 
               body: MultidrawerBodyPart()
@@ -625,9 +625,9 @@ class _MultidrawerPartState extends State<MultidrawerPart> {
         );
       }
         return WillPopScope(
-      onWillPop: (){
-        showExitPopup();
-      },
+          onWillPop: (){
+          showExitPopup();
+          },
           child: Scaffold(
             appBar: AppBar(
             elevation: 7,
@@ -637,8 +637,7 @@ class _MultidrawerPartState extends State<MultidrawerPart> {
             title: Image.asset('assets/images/appbar-logo.png',),
             flexibleSpace: appBarContainer,
           ),
-            drawer: DrawerPart(),
-          /*Container(
+            drawer: Container(
             //margin: EdgeInsets.only(top: 56),
             width: size.width * .60,
             child: Drawer(
@@ -739,8 +738,8 @@ class _MultidrawerPartState extends State<MultidrawerPart> {
                             Navigator.of(context).pop();
                             Navigator.of(context).push(MaterialPageRoute(builder: (context) => CProgram2020()));
                           }
-                          *//*Navigator.of(context).pop();
-                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => CProgram2020()));*//*
+                          /*Navigator.of(context).pop();
+                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => CProgram2020()));*/
                         },
                       ),
                       SizedBox(height: 10,),
@@ -1047,7 +1046,7 @@ class _MultidrawerPartState extends State<MultidrawerPart> {
                 ],
               ),
             ),
-          ),*/
+          ),
 
 
             body: MultidrawerBodyPart()

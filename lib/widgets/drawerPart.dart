@@ -2,6 +2,7 @@ import 'package:admob_flutter/admob_flutter.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:like_ict_tube_app/board_question/communication_networking_board_question_page.dart';
 import 'package:like_ict_tube_app/categories/contact_page.dart';
 import 'package:like_ict_tube_app/categories/cprogram_2019_page.dart';
 import 'package:like_ict_tube_app/categories/cprogram_2020_page.dart';
@@ -67,31 +68,34 @@ class _DrawerPartState extends State<DrawerPart> {
             DrawerHeader(
               child: Image.asset('assets/images/logo.png',),
             ),
-            Container(
-              margin: EdgeInsets.only(left: 30, right: 30),
-              padding: EdgeInsets.only(top: 10, bottom: 10),
-              decoration: new BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                gradient: new LinearGradient(
-                    colors: [
-                      Colors.blue,
-                      Colors.purple,
-                    ],
-                    begin: const FractionalOffset(0.0, 0.0),
-                    end: const FractionalOffset(1.0, 0.0),
-                    stops: [0.0, 1.0],
-                    tileMode: TileMode.clamp
+            Expanded(
+              child: Container(
+                margin: EdgeInsets.only(left: 30, right: 30),
+                padding: EdgeInsets.only(top: 10, bottom: 10),
+                decoration: new BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  gradient: new LinearGradient(
+                      colors: [
+                        Colors.blue,
+                        Colors.purple,
+                      ],
+                      begin: const FractionalOffset(0.0, 0.0),
+                      end: const FractionalOffset(1.0, 0.0),
+                      stops: [0.0, 1.0],
+                      tileMode: TileMode.clamp
+                  ),
                 ),
+                alignment: Alignment.center,
+                child: Text('HSC ICT COURSE', style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    letterSpacing: 2,
+                    wordSpacing: 2,
+                    fontFamily: 'Roboto'
+                ),
+                textAlign: TextAlign.center,),
               ),
-              alignment: Alignment.center,
-              child: Text('HSC ICT COURSE', style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                  letterSpacing: 2,
-                  wordSpacing: 2,
-                  fontFamily: 'Roboto'
-              )),
             ),
             //SizedBox(height: 10,),
             ExpansionTile(
@@ -536,6 +540,29 @@ class _DrawerPartState extends State<DrawerPart> {
                     } else if (result == ConnectivityResult.mobile || result == ConnectivityResult.wifi) {
                       Navigator.of(context).pop();
                       Navigator.of(context).push(MaterialPageRoute(builder: (context) => NumAndLogicBQ()));
+                    }
+                  },
+                ),
+                SizedBox(height: 10,),
+                GestureDetector(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 40),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Image.asset('assets/images/youtube.png', width: 25, height: 25,),
+                        SizedBox(width: 10),
+                        Text("Chapter - 2",style: menuStyle2),
+                      ],
+                    ),
+                  ),
+                  onTap: ()async{
+                    var result = await Connectivity().checkConnectivity();
+                    if (result == ConnectivityResult.none) {
+                      connectionDialog();
+                    } else if (result == ConnectivityResult.mobile || result == ConnectivityResult.wifi) {
+                      Navigator.of(context).pop();
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => CommunicationNetworkingBQ()));
                     }
                   },
                 ),
